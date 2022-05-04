@@ -26,7 +26,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder>
     @Override
     public void onBindViewHolder(TodoViewHolder holder, int position)
     {
-        holder.textView.setText(dataset.get(position)._description);
+        holder._description.setText(dataset.get(position)._description);
+        holder._details.setText(dataset.get(position)._details);
     }
 
     @Override

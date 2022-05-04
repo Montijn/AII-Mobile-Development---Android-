@@ -33,39 +33,40 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rvTodos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
-        list.add(new Todo("test"));
-        jsonParse();
+        list.add(new Todo("Boodschappen", "Eieren, melk, brood"));
+        list.add(new Todo("Was", "Witte was"));
+//        jsonParse();
         recyclerView.setAdapter(new TodoAdapter(list));
     }
-    private void jsonParse(){
-        String url = "https://myjson.dit.upm.es/api/bins/ay9d";
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-            new Response.Listener<JSONObject>()
-            {
-                @Override public void onResponse(JSONObject response)
-                {
-                    try {
-                        JSONArray jsonArray = response.getJSONArray("todos");
-                        for(int i = 0; i < jsonArray.length(); i++){
-                            todo = jsonArray.getJSONObject(i);
-                            list.add(new Todo(todo.getString("description")));
-                        }
-                    } catch (JSONException e) {
-
-                        e.printStackTrace();
-                    }
-                }
-            },
-            new Response.ErrorListener()
-            {
-                @Override public void onErrorResponse(VolleyError error)
-                {
-                    error.printStackTrace();
-                }
-            });
-        queue.add(jsonObjectRequest);
-    }
+//    private void jsonParse(){
+//        String url = "https://myjson.dit.upm.es/api/bins/ay9d";
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+//            new Response.Listener<JSONObject>()
+//            {
+//                @Override public void onResponse(JSONObject response)
+//                {
+//                    try {
+//                        JSONArray jsonArray = response.getJSONArray("todos");
+//                        for(int i = 0; i < jsonArray.length(); i++){
+//                            todo = jsonArray.getJSONObject(i);
+//                            list.add(new Todo(todo.getString("description")));
+//                        }
+//                    } catch (JSONException e) {
+//
+//                        e.printStackTrace();
+//                    }
+//                }
+//            },
+//            new Response.ErrorListener()
+//            {
+//                @Override public void onErrorResponse(VolleyError error)
+//                {
+//                    error.printStackTrace();
+//                }
+//            });
+//        queue.add(jsonObjectRequest);
+//    }
 
 
 }

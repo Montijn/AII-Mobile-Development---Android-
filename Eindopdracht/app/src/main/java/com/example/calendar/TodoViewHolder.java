@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class TodoViewHolder extends RecyclerView.ViewHolder
 {
-    TextView textView;
+    TextView _description;
+    TextView _details;
     TodoViewHolder(View view)
     {
         super(view);
-        textView = view.findViewById(R.id.textView);
+        this._description = view.findViewById(R.id.description);
+        this._details = view.findViewById(R.id.details);
     }
 
 }
