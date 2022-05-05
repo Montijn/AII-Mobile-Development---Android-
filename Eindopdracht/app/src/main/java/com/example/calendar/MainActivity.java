@@ -28,15 +28,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        queue = Volley.newRequestQueue(this);
-        RecyclerView recyclerView = findViewById(R.id.rvTodos);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        list = new ArrayList<>();
-        list.add(new Todo("Boodschappen", "Eieren, melk, brood"));
-        list.add(new Todo("Was", "Witte was"));
-//        jsonParse();
-        recyclerView.setAdapter(new TodoAdapter(list));
+//
+//        queue = Volley.newRequestQueue(this);
     }
 //    private void jsonParse(){
 //        String url = "https://myjson.dit.upm.es/api/bins/ay9d";

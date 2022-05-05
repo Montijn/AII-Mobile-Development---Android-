@@ -1,10 +1,10 @@
 package com.example.calendar;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -16,8 +16,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder>
     public TodoAdapter(List<Todo> todos){
         this.dataset = todos;
     }
+    @NonNull
     @Override
-    public TodoViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public TodoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.todo_item, parent, false);
@@ -26,8 +27,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder>
     @Override
     public void onBindViewHolder(TodoViewHolder holder, int position)
     {
-        holder._description.setText(dataset.get(position)._description);
-        holder._details.setText(dataset.get(position)._details);
+        holder.GetDescription().setText(dataset.get(position)._description);
+        holder.GetDetails().setText(dataset.get(position)._details);
     }
 
     @Override
