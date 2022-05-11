@@ -9,12 +9,6 @@
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1" />
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/detailFragment"
-        android:name="com.example.calendar.DetailFragment"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
 </LinearLayout>
 
 

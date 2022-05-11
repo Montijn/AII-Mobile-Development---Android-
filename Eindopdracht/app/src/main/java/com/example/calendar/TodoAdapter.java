@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder>
 {
     private List<Todo> dataset;
+    private RecyclerViewClickListener listener;
 
-    public TodoAdapter(List<Todo> todos){
+    public TodoAdapter(List<Todo> todos, RecyclerViewClickListener listener){
         this.dataset = todos;
+        this.listener = listener;
     }
     @NonNull
     @Override
@@ -27,8 +30,18 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder>
     @Override
     public void onBindViewHolder(TodoViewHolder holder, int position)
     {
-        holder.GetDescription().setText(dataset.get(position)._description);
-        holder.GetDetails().setText(dataset.get(position)._details);
+        holder.getDescription().setText(dataset.get(position).getDescription());
+        holder.getDetails().setText(dataset.get(position).getDetails());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                DetailFragment detailFragment = new DetailFragment();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.overviewFragment, detailFragment)
+                    .addToBackStack(null).commit();
+            }
+        });
     }
 
     @Override
@@ -36,4 +49,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder>
         return dataset.size();
     }
 
+
+    public interface RecyclerViewClickListener{
+        void onClick(View v, int position );
+
+    }
 }
