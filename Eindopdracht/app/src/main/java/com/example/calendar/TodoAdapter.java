@@ -38,8 +38,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder>
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 DetailFragment detailFragment = new DetailFragment();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.overviewFragment, detailFragment)
-                    .addToBackStack(null).commit();
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.overviewFragment, detailFragment)
+//                    .addToBackStack(null).commit();
             }
         });
     }
