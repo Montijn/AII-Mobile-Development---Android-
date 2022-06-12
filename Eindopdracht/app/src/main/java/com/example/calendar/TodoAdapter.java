@@ -1,5 +1,6 @@
 package com.example.calendar;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,15 +32,19 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder>
     public void onBindViewHolder(TodoViewHolder holder, int position)
     {
         holder.getDescription().setText(dataset.get(position).getDescription());
-        holder.getDetails().setText(dataset.get(position).getDetails());
+//        holder.getDetails().setText(dataset.get(position).getDetails());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 DetailFragment detailFragment = new DetailFragment();
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.overviewFragment, detailFragment)
-//                    .addToBackStack(null).commit();
+                String test = dataset.get(holder.getAdapterPosition()).getDetails().toString();
+                detailFragment.setArguments(new Bundle());
+                detailFragment.getArguments().putString("detail", test);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.overviewFragment, detailFragment)
+                    .addToBackStack(null).commit();
+
             }
         });
     }
