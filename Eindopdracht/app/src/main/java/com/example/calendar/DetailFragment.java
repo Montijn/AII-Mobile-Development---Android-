@@ -60,7 +60,7 @@ public class DetailFragment extends Fragment {
     String detail;
     public static final int REQUEST_IMAGE_CAPTURE = 1;
     public static final int REQUEST_EXTERNAL_STORAGE =2;
-    public static final int ASK_PERMISSION_REQUEST = 22;
+
     String[] externalPermissions= new String[]{
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.READ_EXTERNAL_STORAGE,
