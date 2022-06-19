@@ -1,10 +1,10 @@
 package com.example.calendar;
 
 
-public class Todo {
+public class Product {
     private String _description;
     private String _details;
-    public Todo(String description, String details){
+    public Product(String description, String details){
         this._description = description;
         this._details = details;
 

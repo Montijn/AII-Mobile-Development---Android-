@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
     void applySettings() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        boolean bckgrnd = preferences.getBoolean("background", true);
+        boolean background = preferences.getBoolean("background", true);
 
         View view = findViewById(android.R.id.content);
-        view.setBackgroundResource(bckgrnd? android.R.color.darker_gray : android.R.color.transparent);
+        view.setBackgroundResource(background? android.R.color.darker_gray : android.R.color.transparent);
     }
 }

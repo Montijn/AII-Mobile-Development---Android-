@@ -27,13 +27,13 @@ import java.util.List;
 
 
 public class OverviewFragment extends Fragment {
-    private List<Todo> list;
+    private List<Product> list;
     private JSONObject jsonTodo;
-    private Todo todo;
+    private Product product;
     private RequestQueue queue;
     private RecyclerView recyclerView;
-    private TodoAdapter adapter;
-    private TodoAdapter.RecyclerViewClickListener listener;
+    private ProductAdapter adapter;
+    private ProductAdapter.RecyclerViewClickListener listener;
     public OverviewFragment() {
 
     }
@@ -48,7 +48,7 @@ public class OverviewFragment extends Fragment {
         queue = Volley.newRequestQueue(this.getContext());
         recyclerView = view.findViewById(R.id.rvTodos);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        list = new ArrayList<Todo>();
+        list = new ArrayList<Product>();
         setTodos();
         return view;
     }
@@ -65,10 +65,10 @@ public class OverviewFragment extends Fragment {
                         JSONArray jsonArray = response.getJSONArray("products");
                         for(int i = 0; i < jsonArray.length(); i++){
                             jsonTodo = jsonArray.getJSONObject(i);
-                            todo = new Todo(jsonTodo.getString("title"), jsonTodo.getString("description"));
-                            list.add(todo);
+                            product = new Product(jsonTodo.getString("title"), jsonTodo.getString("description"));
+                            list.add(product);
                         }
-                        adapter = new TodoAdapter(list, listener);
+                        adapter = new ProductAdapter(list, listener);
                         recyclerView.setAdapter(adapter);
                         setOnClickListener();
                     }
@@ -90,7 +90,7 @@ public class OverviewFragment extends Fragment {
 
 
     private void setOnClickListener() {
-        listener = new TodoAdapter.RecyclerViewClickListener(){
+        listener = new ProductAdapter.RecyclerViewClickListener(){
 
             @Override
             public void onClick(View v, int position) {

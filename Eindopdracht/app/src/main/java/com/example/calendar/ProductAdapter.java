@@ -11,25 +11,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder>
+public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder>
 {
-    private List<Todo> dataset;
+    private List<Product> dataset;
     private RecyclerViewClickListener listener;
 
-    public TodoAdapter(List<Todo> todos, RecyclerViewClickListener listener){
-        this.dataset = todos;
+    public ProductAdapter(List<Product> products, RecyclerViewClickListener listener){
+        this.dataset = products;
         this.listener = listener;
     }
     @NonNull
     @Override
-    public TodoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.todo_item, parent, false);
-        return new TodoViewHolder(view);
+        return new ProductViewHolder(view);
     }
     @Override
-    public void onBindViewHolder(TodoViewHolder holder, int position)
+    public void onBindViewHolder(ProductViewHolder holder, int position)
     {
         holder.getDescription().setText(dataset.get(position).getDescription());
 //        holder.getDetails().setText(dataset.get(position).getDetails());

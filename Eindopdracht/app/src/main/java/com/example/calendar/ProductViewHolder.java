@@ -5,12 +5,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-class TodoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
-    private TodoAdapter.RecyclerViewClickListener _listener;
+    private ProductAdapter.RecyclerViewClickListener _listener;
     private TextView _description;
 //    private TextView _details;
-    public TodoViewHolder(View view)
+    public ProductViewHolder(View view)
     {
         super(view);
         _description = view.findViewById(R.id.description);
