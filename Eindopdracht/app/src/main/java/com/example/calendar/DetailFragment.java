@@ -40,7 +40,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import kotlin.jvm.internal.Ref;
 
@@ -56,9 +58,13 @@ public class DetailFragment extends Fragment {
     Button button;
     String img_uri;
     String detail;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final int REQUEST_EXTERNAL_STORAGE =2;
     public static final int ASK_PERMISSION_REQUEST = 22;
-//TODO afbeelding opslaan als detail en checken of die foto bestaat.
+    String[] externalPermissions= new String[]{
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+      };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,7 +75,10 @@ public class DetailFragment extends Fragment {
         if(getArguments() !=null ){
             String detail = getArguments().getString("detail");
             setDetail(detail);
-            loadImageFromStorage(detail);
+            if(askExternalPermissions()){
+                loadImageFromStorage(detail);
+            }
+
         }
 
 
@@ -93,20 +102,35 @@ public class DetailFragment extends Fragment {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == REQUEST_IMAGE_CAPTURE){
-            if(grantResults.length < 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                openCamera();
-            }
-            else{
-                Toast.makeText(getContext(),"Camera Permission is required to use camera", Toast.LENGTH_SHORT).show();
-            }
-        }
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
 
+        }
+        switch (requestCode) {
+            case REQUEST_IMAGE_CAPTURE: {
+                if (grantResults.length < 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                } else {
+                    Toast.makeText(getContext(), "Camera Permission is required to use camera", Toast.LENGTH_SHORT).show();
+                }
+            }
+            case REQUEST_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0) {
+                    String permissionsDenied = "";
+                    for (String per : permissions) {
+                        if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                            permissionsDenied += "\n" + per;
+
+                        }
+
+                    }
+                }
+            }
+
+        }
     }
     private void openCamera(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         someActivityResultLauncher.launch(intent);
-
     }
     private void askCameraPermissions(){
         if(ContextCompat.checkSelfPermission(getContext(),Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
@@ -120,13 +144,27 @@ public class DetailFragment extends Fragment {
             openCamera();
         }
     }
+    private  boolean askExternalPermissions() {
+        int result;
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        for (String p:externalPermissions) {
+            result = ContextCompat.checkSelfPermission(getActivity(),p);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p);
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(getActivity(), listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),REQUEST_EXTERNAL_STORAGE );
+            return false;
+        }
+        return true;
+    }
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
         new ActivityResultContracts.StartActivityForResult(),
         new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                    // There are no request codes
                     Intent data = result.getData();
                     Bitmap image = (Bitmap) data.getExtras().get("data");
                     imageView.setImageBitmap(image);
@@ -170,8 +208,6 @@ public class DetailFragment extends Fragment {
             File f=new File(this.img_uri, detail + ".jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
                 imageView.setImageBitmap(b);
-
-
         }
         catch (FileNotFoundException e)
         {
